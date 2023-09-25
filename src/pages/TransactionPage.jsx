@@ -24,11 +24,13 @@ export default function TransactionsPage() {
       }
     }
 
-    const request = axios.post(import.meta.env.VITE_SERVER + "/nova-transacao/" + tipo, data, config)
+    const request = axios.post(import.meta.env.VITE_API_URL + "/nova-transacao/" + tipo, data, config)
+    
     request.then((res) => {
       alert("Sucess")
       navigate("/home")
     })
+
     request.catch((res) => {
       alert(res.response.data.errors)
       navigate("/home")
@@ -37,9 +39,10 @@ export default function TransactionsPage() {
 
   return (
     <TransactionsContainer>
-      <h1>Nova TRANSAÇÃO</h1>
+      <h1>Nova {tipo}</h1>
       <form onSubmit={handlerSubmit}>
         <input
+          data-test="registry-amount-input"
           required 
           placeholder="Valor" 
           type="number"
@@ -47,13 +50,17 @@ export default function TransactionsPage() {
           onChange={(e) => setValue(e.target.value)} 
         />
         <input
-          required 
+          required
+          data-test="registry-name-input" 
           placeholder="Descrição" 
           type="text"
           value={description}
           onChange={(e) => setDescription(e.target.value)} 
         />
-        <button type="submit" >Salvar TRANSAÇÃO</button>
+        <button 
+          type="submit" 
+          data-test="registry-save"
+        >Salvar TRANSAÇÃO</button>
       </form>
     </TransactionsContainer>
   )

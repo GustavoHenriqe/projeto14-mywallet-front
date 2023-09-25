@@ -17,7 +17,7 @@ export default function HomePage() {
         }
       }
   
-      const request = axios.get(import.meta.env.VITE_SERVER + "/transacao", config)
+      const request = axios.get(import.meta.env.VITE_API_URL + "/transacao", config)
       request.then((res) => {
         setTransactionInfo(res.data)
       })
@@ -42,8 +42,11 @@ export default function HomePage() {
   return (
     <HomeContainer>
       <Header>
-        <h1>Olá, {transactionInfo.name}</h1>
-        <BiExit onClick={handlerExit} />
+        <h1 data-test="user-name">Olá, {transactionInfo.name}</h1>
+        <BiExit 
+          data-test="logout" 
+          onClick={handlerExit} 
+        />
       </Header>
 
       <TransactionsContainer>
@@ -55,10 +58,10 @@ export default function HomePage() {
                   
                   <div>
                     <span>{o.date}</span>
-                    <strong>{o.description}</strong>
+                    <strong data-test="registry-name"  >{o.description}</strong>
                   </div>
 
-                  <Value color={o.type}>
+                  <Value data-test="registry-amount" color={o.type}>
                     {(o.value / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
                   </Value>
 
@@ -70,30 +73,33 @@ export default function HomePage() {
 
         <article>
           <strong>Saldo</strong>
-
-          {transactionInfo.value >= 0 ?
-
-            <Value color={"positive"}>
-                {(transactionInfo.value / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
-            </Value> :
-
-            <Value color={"negative"}>
-                {(transactionInfo.value / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+            <Value 
+              data-test="total-amount" 
+              color={ transactionInfo.value >= 0 ? "positive" : "negative" }
+            >
+              {(transactionInfo.value / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
             </Value>
-          }
-
         </article>
       </TransactionsContainer>
 
       <ButtonsContainer>
-        <button onClick={() => navigate("/nova-transacao/entrada")}>
+
+        <button
+          data-test="new-income"
+          onClick={() => navigate("/nova-transacao/entrada")}
+        >
           <AiOutlinePlusCircle />
           <p>Nova <br /> entrada</p>
         </button>
-        <button onClick={() => navigate("/nova-transacao/saida")}>
+
+        <button
+          data-test="new-expense" 
+          onClick={() => navigate("/nova-transacao/saida")}
+        >
           <AiOutlineMinusCircle />
           <p>Nova <br />saída</p>
         </button>
+
       </ButtonsContainer>
 
     </HomeContainer>

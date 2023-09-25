@@ -25,7 +25,7 @@ export default function SignUpPage() {
       return alert("Password does not match")
     }
 
-    const request = axios.post(import.meta.env.VITE_SERVER + "/cadastro", data)
+    const request = axios.post(import.meta.env.VITE_API_URL + "/cadastro", data)
 
     request.then((res) => {
       alert("Sucess")
@@ -41,7 +41,8 @@ export default function SignUpPage() {
       <form onSubmit={handlerSubmit}>
         <MyWalletLogo />
         <input
-          required 
+          required
+          data-test="name" 
           placeholder="Nome" 
           type="text"
           value={name}
@@ -49,14 +50,16 @@ export default function SignUpPage() {
         />
         <input
           required 
-          placeholder="E-mail" 
+          placeholder="E-mail"
+          data-test="email" 
           type="email"
           value={email}
           onChange={(e) => {setEmail(e.target.value)}} 
         />
         <input
           required 
-          placeholder="Senha" 
+          placeholder="Senha"
+          data-test="password" 
           type="password" 
           autocomplete="new-password"
           value={password}
@@ -65,13 +68,17 @@ export default function SignUpPage() {
         />
         <input
           required 
-          placeholder="Confirme a senha" 
+          placeholder="Confirme a senha"
+          data-test="conf-password"  
           type="password" 
           autocomplete="new-password"
           value={passwordRepet}
           onChange={(e) => setPasswordRepet(e.target.value)} 
         />
-        <button type="submit">Cadastrar</button>
+        <button 
+          data-test="sign-up-submit" 
+          type="submit"
+        >Cadastrar</button>
       </form>
 
       <Link to={"/"}>

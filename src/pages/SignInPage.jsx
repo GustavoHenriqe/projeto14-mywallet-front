@@ -18,7 +18,7 @@ export default function SignInPage() {
         password
       }
 
-      await axios.post(import.meta.env.VITE_SERVER + "/", data)
+      await axios.post(import.meta.env.VITE_API_URL + "/", data)
       .then((res) => {
         localStorage.setItem("token", res.data.token)
         navigate("/home")
@@ -35,7 +35,8 @@ export default function SignInPage() {
         <MyWalletLogo />
         <input
           required 
-          placeholder="E-mail" 
+          placeholder="E-mail"
+          data-test="email" 
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -43,12 +44,16 @@ export default function SignInPage() {
         <input
           required 
           placeholder="Senha"
+          data-test="password"
           type="password" 
           autocomplete="new-password"
           value={password} 
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Entrar</button>
+        <button 
+          data-test="sign-in-submit" 
+          type="submit"
+        >Entrar</button>
       </form>
 
       <Link to="/cadastro" >
