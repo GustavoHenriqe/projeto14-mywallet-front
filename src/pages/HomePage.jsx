@@ -62,7 +62,7 @@ export default function HomePage() {
                   </div>
 
                   <Value data-test="registry-amount" color={o.type}>
-                    {(o.value / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+                    {o.value}
                   </Value>
 
                 </ListItemContainer>
@@ -77,7 +77,7 @@ export default function HomePage() {
               data-test="total-amount" 
               color={ transactionInfo.value >= 0 ? "positive" : "negative" }
             >
-              {(transactionInfo.value / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+              {transactionInfo.value}
             </Value>
         </article>
       </TransactionsContainer>
